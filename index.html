@@ -163,7 +163,6 @@
               <div class="d-flex align-items-center justify-content-between">
                 <span class="badge badge-soft px-3 py-2">Search location</span>
                 <div class="d-flex gap-2">
-                  <button id="btnLocate2" class="btn btn-sm btn-outline-primary btn-pill">Use My Location</button>
                 </div>
               </div>
               <div class="position-relative my-2">
@@ -894,7 +893,7 @@ Return 8–14 diverse, realistic projects. Size in sqft. Bands can vary ±20% ar
     const markersByType={};
     function initMap2(){
       if(!document.getElementById('map2')) return;
-      map2=new google.maps.Map(document.getElementById('map2'),{center:{lat:22.5726,lng:88.3639},zoom:12,mapTypeControl:false});
+  map2=new google.maps.Map(document.getElementById('map2'),{center:{lat:22.5726,lng:88.3639},zoom:12,mapTypeControl:false,streetViewControl:false});
       placesService2=new google.maps.places.PlacesService(map2);
       const input=document.getElementById('searchBox2');
       autocomplete2=new google.maps.places.Autocomplete(input,{fields:["geometry","name"]});
@@ -907,12 +906,6 @@ Return 8–14 diverse, realistic projects. Size in sqft. Bands can vary ±20% ar
       document.getElementById('retailRadius').addEventListener('input',e=>{document.getElementById('retailRadiusLbl').textContent=e.target.value; if(marker2) drawCircle2();});
       document.getElementById('retailLimit').addEventListener('input',e=>document.getElementById('retailLimitLbl').textContent=e.target.value);
       buildPOIControls();
-      document.getElementById('btnLocate2').addEventListener('click',()=>{
-        if(navigator.geolocation) navigator.geolocation.getCurrentPosition(pos=>{
-          const latlng={lat:pos.coords.latitude,lng:pos.coords.longitude};
-          map2.setCenter(latlng); map2.setZoom(15); setMarker2(latlng);
-        },()=>alert('Location unavailable'));
-      });
     }
     function setMarker2(latlng){
       if(marker2) marker2.setMap(null);
